@@ -1,7 +1,7 @@
 import { Request, Response } from 'express'
-import { ProductsServices } from './E-commerce.service'
-import { ZodError, z } from 'zod'
-import productValidationSchema from './E-commerce.validation'
+import { ProductsServices } from './Products.service'
+import { ZodError } from 'zod'
+import productValidationSchema from './Products.validation'
 
 const createProduct = async (req: Request, res: Response) => {
   try {
@@ -82,7 +82,7 @@ const updateSingleProductFromDb = async (req:Request, res:Response)=>{
 const deleteSingleProductFromDb = async (req:Request, res:Response)=>{
     try{
          const {productId} = req.params
-         const result = await ProductsServices.deleteSingleProduct(productId)
+          await ProductsServices.deleteSingleProduct(productId)
 
          res.json({
             success: true,
@@ -97,10 +97,41 @@ const deleteSingleProductFromDb = async (req:Request, res:Response)=>{
     }
 }
 
+const searchProductFromDb = async (req: Request, res: Response) => {
+  try {
+    const { searchTerm } = req.query;
+    if (!searchTerm) {
+      return res.status(400).json({
+        success: false,
+        message: 'Search term is required',
+      });
+    }
+    
+    const result = await ProductsServices.searchProduct(searchTerm as string);
+    
+    res.json({
+      success: true,
+      message: `Products matching search term '${searchTerm}' fetched successfully!`,
+      data: result,
+    });
+  } catch (err) {
+    res.status(500).json({
+      message: 'Internal Server Error',
+      error: err,
+    });
+  }
+};
+
+
+
+
 export const ProductsController = {
   createProduct,
   getAllProductsFromDb,
   getSingleProductsFromDb,
   updateSingleProductFromDb,
-  deleteSingleProductFromDb
+  deleteSingleProductFromDb,
+  searchProductFromDb,
 }
+
+

@@ -1,3 +1,5 @@
+
+
 export type TVariant = {
     type: string;
     value: string;
@@ -17,3 +19,4 @@ export type TProducts = {
     variants: TVariant[];
     inventory: TInventory;
 }
+
