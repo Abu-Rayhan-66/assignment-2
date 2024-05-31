@@ -32,7 +32,7 @@ const getAllProductsFromDb = async (req: Request, res: Response) => {
 
     res.json({
       success: true,
-      message: 'products retrieved successfully',
+      message: 'Products fetched successfully!',
       data: result,
     })
   } catch (err) {
@@ -60,12 +60,20 @@ const updateSingleProductFromDb = async (req:Request, res:Response)=>{
         const zodValidateData = productValidationSchema.parse(productsData);
         const result = await ProductsServices.updateSingleProduct(productId, zodValidateData);
 
+        if (!result) {
+          return res.status(404).json({
+            success: false,
+            message: 'Product not found',
+          });
+        }
+
         res.json({
             success: true,
             message: 'Product updated successfully!',
             data: result,
             
           })
+         
 
     }catch(error){
         if (error instanceof ZodError) {

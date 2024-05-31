@@ -1,7 +1,7 @@
 import express, { Application, Request, Response } from 'express'
 import cors from 'cors'
-import { ProductsRoutes } from './modules/Products/Products.route'
-import { OrdersRoutes } from './modules/Orders/Orders.router'
+import { ProductsRoutes } from './app/Products/Products.route'
+import { OrdersRoutes } from './app/Orders/Orders.router'
 const app: Application = express()
 
 // parser
@@ -22,6 +22,6 @@ app.use((req, res) => {
   })
 })
 
-console.log()
+
 
 export default app

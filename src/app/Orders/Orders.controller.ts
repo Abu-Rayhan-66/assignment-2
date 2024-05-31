@@ -34,7 +34,7 @@ const createOrders = async(req:Request, res:Response)=>{
   
       res.json({
         success: true,
-        message: 'order retrieved successfully',
+        message: 'Orders fetched successfully!',
         data: result,
       })
     } catch (err) {
