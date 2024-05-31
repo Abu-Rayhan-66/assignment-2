@@ -24,4 +24,6 @@ npm run start:dev
 ``` 
 Run this command to start your server locally.
 
+##
+If you follow these steps you can run the server locally.  
 
